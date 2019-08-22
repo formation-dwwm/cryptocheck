@@ -1,0 +1,82 @@
+@import url(https://fonts.googleapis.com/css?family=Arbutus+Slab);
+
+body {
+    font-family: "Arbutus Slab", "serif";
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+}
+
+h1{
+    font-size: 32px;
+    text-align: center;
+    margin: 55px;
+}
+
+
+.list{
+    display: flex;
+    
+}
+
+.market-cap{
+  justify-content: center;
+}
+
+table{
+    width: 100%;
+}
+
+.crypto{    
+    align-items: center;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 12px;
+    list-style-type: none;
+    padding: 10px;
+    width: auto;
+}
+
+.navbar-brand{
+    font-size: 30px;
+}
+
+tr{
+    margin: 10px;
+}
+
+.crypto td{
+    
+    margin: 10px;
+}
+
+img{
+    padding: 5px;
+
+}
+
+.title{
+    font-size: 30px;
+    text-align: center;
+}
+
+.form-control{
+    width: 500px;
+    justify-content: center;
+}
+
+
+.FORM{
+    display: flex;
+    justify-content: center;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.articles{
+    display: flex;
+    width: 200px;
+    margin-left: 10px;
+}
+

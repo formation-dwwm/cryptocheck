@@ -1,0 +1,23 @@
+{% extends 'crypto/base.html.twig' %}
+
+{% block body %}
+
+<h1>News</h1>
+
+<section class="articles">
+{% for article in articles %}
+    <article>
+        <h3>{{ article.title }}</h3>
+        <div class="metadata">By Helen Partz, le {{ article.createdAt|date('m/d/y') }} à {{ article.createdAt|date('H:i') }}</div>
+        <div class="content">
+            <img src="{{ article.image }}" alt="image"/>
+            <a href="https://cointelegraph.com/news/segwit-creator-introduces-new-language-for-bitcoin-smart-contracts" target="_blank"><h5>Source :{{ article.source }}</h5></a>
+            <p>{{ article.content }}</p>
+            <a href="{{ path('articles_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
+        </div>
+    </article>
+{% endfor %}
+</section>
+<a class="newArticle" href="{{ path('create_article') }}"><h5>Créer un article</h5></a>
+
+{% endblock %}

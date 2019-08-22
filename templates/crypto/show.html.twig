@@ -1,0 +1,15 @@
+{% extends 'crypto/base.html.twig' %}
+
+{% block body %}
+    <div class="articles">
+        <article>
+            <h3>{{ article.title }}</h3>
+            <div class="metadata">By Helen Partz, le {{ article.createdAt|date('d/m/y') }} à {{ article.createdAt|date('H:i') }}.</div>
+           <img src="{{ article.image }}" alt="image"/>
+            <a href="https://cointelegraph.com/news/segwit-creator-introduces-new-language-for-bitcoin-smart-contracts" target="_blank"><h5>Source :{{ article.source }}</h5></a>
+            <hr>
+            <p>{{ article.content }}</p>
+            <cite>"Imaginons qu'une entreprise veuille protéger ses fonds d'entreposage frigorifique en appliquant une politique multisig sur deux avec trois dirigeants. L’un des cadres possède toutefois une belle configuration basée sur 2FA / multisig / timelock. Pourquoi cette configuration ne peut-elle pas être l’un des «participants» multisig? Beaucoup de travail est axé sur des extensions de la fonctionnalité de la blockchain elle-même pour prendre en charge des applications plus complexes, mais je pense que nous oublions qu'il est aujourd'hui impossible d'utiliser ces fonctionnalités de manière accessible, composable et analysable."</cite>
+        </article>
+    </div>
+{% endblock %}

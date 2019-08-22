@@ -1,0 +1,15 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+# oc_news_index:
+#     path:       /news
+#     controller: App\Controller\CryptoController::index
+
+# oc_news_view:
+#     path:       /news/view/{id}
+#     controller: App\Controller\CryptoController::view
+
+# oc_news_add:
+#     path: /news/add
+#     controller: App\Controller\AdvertController::add

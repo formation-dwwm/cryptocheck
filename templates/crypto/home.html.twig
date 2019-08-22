@@ -1,0 +1,24 @@
+{% extends 'crypto/base.html.twig' %}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+    <br>
+    <table>
+        <tr class="type">
+            <td>Rank</td>
+            <td>Price</td>
+            <td>MarketCap</td>
+            <td>Value</td>
+         </tr>
+            {% for item in crypto %}
+                <tr class="crypto">
+                    <td class="rank">{{ item.cmc_rank }}
+                        <img class="icons" src = {{ "icons/%d.png"|format(item.id) }} />
+                        {{ item.name }}
+                        <td>{{ item.quote.USD.price * 100 // 1 / 100 }} $ </td>
+                    <td class="marketcap">{{ item.quote.USD.market_cap|number_format() }} $ </td>
+                    <td class="percent"> {{ item.quote.USD.percent_change_24h * 100 // 1 / 100 }} % </td>
+                </tr>
+            {% endfor %}
+    </table>
+{% endblock %}

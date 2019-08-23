@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -19,10 +20,17 @@ class Article
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *  @Assert\Length(min=4, max=30)
+     */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=4, max=255)
      */
     private $content;
 
@@ -37,13 +45,26 @@ class Article
     private $createdAt;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $source;
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(string $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
     }
 
     public function getTitle(): ?string

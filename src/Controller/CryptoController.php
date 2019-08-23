@@ -12,10 +12,18 @@ use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Form\ArticleType;
+
 
 
 class CryptoController extends AbstractController
 {
+
+    private $params;
+
     public function __construct(){
         $this->params = [
             'title' => "CryptoCheck",
@@ -38,36 +46,33 @@ class CryptoController extends AbstractController
 
     /**
      * @Route ("/articles/creer", name="create_article")
+     * @Route ("/articles/{id}/editer", name="edit_article")
      */
-    public function create(Request $request, ObjectManager $manager){
+    public function form(Article $articles = null, Request $request, ObjectManager $manager){
 
-        $article = new Article();
-        $form = $this->createFormBuilder($article)
-                     ->add('title', [
-                         'attr' => [
-                             'placeholder' => "Titre de l'article"
-                         ]
-                     ])
-                    //  ->add('content', [
-                    //     'attr' => [
-                    //         'placeholder' => "Contenu de l'article"
-                    //     ]
-                    // ])
-                    //  ->add('image',   [
-                    //     'attr' => [
-                    //         'placeholder' => "image de l'article"
-                    //     ]
-                    // ])
-                    //  ->add('source', TextType::class,  [
-                    //     'attr' => [
-                    //         'placeholder' => "Source de l'article"
-                    //     ]
-                    // ])
-                     ->getForm();
+        if(!$articles){
+            $articles = new Article();
+        }
+        
+        $form = $this->createForm(ArticleType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            if(!$articles->getId()){
+                $articles->setCreatedAt(new \DateTime());
+            }
+
+            $manager->persist($articles);
+            $manager->flush();
+
+            return $this->redirectToRoute('articles_show', ['id' => $articles->getId()]);
+        };
 
         return $this->render('crypto/create.html.twig',[
             "title" => "CryptoCheck",
-            'formArticle' => $form->createView()
+            'formArticle' => $form->createView(),
+            'editMode' => $articles->getId() !== null
         ]);
     }
 

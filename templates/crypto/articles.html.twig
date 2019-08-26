@@ -2,13 +2,12 @@
 
 {% block body %}
 
-<h1>News</h1>
-
+<h1>Articles</h1>
 <section class="articles">
 {% for article in articles %}
     <article>
         <h3>{{ article.title }}</h3>
-        <div class="metadata">By Helen Partz, le {{ article.createdAt|date('m/d/y') }} à {{ article.createdAt|date('H:i') }}</div>
+        <div class="metadata">Publié par , le {{ article.createdAt|date('m/d/y') }} à {{ article.createdAt|date('H:i') }}</div>
         <div class="content">
             <img src="{{ article.image }}" alt="image"/>
             <a href="https://cointelegraph.com/news/segwit-creator-introduces-new-language-for-bitcoin-smart-contracts" target="_blank"><h5>Source :{{ article.source }}</h5></a>
@@ -18,6 +17,7 @@
     </article>
 {% endfor %}
 </section>
-<a class="newArticle" href="{{ path('create_article') }}"><h5>Créer un article</h5></a>
-
+{% if app.user %}
+    <a class="newArticle" href="{{ path('create_article') }}"><button class="btn btn-primary">Créer un article</button></a>
+{% endif %}
 {% endblock %}

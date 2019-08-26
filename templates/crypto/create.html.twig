@@ -3,13 +3,12 @@
 {% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-    <h1>Création Article</h1>
+    <h1>Création d'un Article</h1>
     {{ form_start(formArticle) }}
-        {{ form_row(formArticle.title, {'attr' : {'placeholder' : "Titre de l'article"}}) }}
-        {{ form_row(formArticle.createdBy, {'attr' : {'placeholder' : "Auteur de l'article"}}) }}
-        {{ form_row(formArticle.content, {'attr' : {'placeholder' : "Contenu de l'article"}}) }}
+        {{ form_row(formArticle.title, {'label' : 'Titre de l\'article', 'attr' : {'placeholder' : "Entrez le titre de l'article"}}) }}
+        {{ form_row(formArticle.content, {'label' : 'Contenu de l\'article', 'attr' : {'placeholder' : "Entrez le contenu de l'article"}}) }}
         {{ form_row(formArticle.image, {'attr' : {'placeholder' : "Importer une image"}}) }}
-        {{ form_row(formArticle.source, {'attr' : {'placeholder' : "Source de l'article"}}) }}
+        {{ form_row(formArticle.source, {'attr' : {'label' : 'Source de l\'article','placeholder' : "https://"}}) }}
         <button type="submit" class="btn btn-success">
             {% if editMode %}
                 Enregistrer les modifications

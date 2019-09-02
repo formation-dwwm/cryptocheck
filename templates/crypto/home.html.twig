@@ -1,24 +1,50 @@
 {% extends 'crypto/base.html.twig' %}
 
 {% block body %}
-    <h1>{{ title }}</h1>
+<style>
+    body{
+        background-color: #343a40;
+    }
+
+    h1{
+        color: white;
+    }
+
+    .negative {
+        color: red;
+    }
+
+    .positive {
+        color: green;
+    }
+
+</style>
+    <h1>Cryptocurrencies</h1>
     <br>
-    <table>
-        <tr class="type">
-            <td>Rank</td>
-            <td>Price</td>
-            <td>MarketCap</td>
-            <td>Value</td>
-         </tr>
-            {% for item in crypto %}
-                <tr class="crypto">
-                    <td class="rank">{{ item.cmc_rank }}
-                        <img class="icons" src = {{ "icons/%d.png"|format(item.id) }} />
-                        {{ item.name }}
-                        <td>{{ item.quote.USD.price * 100 // 1 / 100 }} $ </td>
-                    <td class="marketcap">{{ item.quote.USD.market_cap|number_format() }} $ </td>
-                    <td class="percent"> {{ item.quote.USD.percent_change_24h * 100 // 1 / 100 }} % </td>
-                </tr>
-            {% endfor %}
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Capitalisation</th>
+                <th scope="col">Variation</th>
+            </tr>
+        </thead>
+        {% for item in crypto %}
+        <tbody id="crypto">
+            <tr>
+                <td>{{ item.cmc_rank }}</td>
+                <td>
+                    <img class="icons" src={{ "icons/%d.png"|format(item.id) }}/>
+                    {{ item.name }}
+                </td>
+                <td>{{ item.quote.USD.price * 100 // 1 / 100 }} $ </td>
+                <td>{{ item.quote.USD.market_cap|number_format() }} $ </td>
+                {% set variation = item.quote.USD.percent_change_24h * 100 // 1 / 100 %}
+                <td class="{% if variation < 0 %} negative {% else %} positive {% endif %} "> {{ variation }} % </td>
+            </tr>
+        </tbody>
+        {% endfor %}
     </table>
 {% endblock %}

@@ -5,7 +5,7 @@
         <article>
             <h3>{{ article.title }}</h3>
             <div class="metadata">
-                Publié par, le {{ article.createdAt|date('d/m/y') }} à {{ article.createdAt|date('H:i') }}.
+                Publié par {{ article.getAuthor().getUsername() }},  le {{ article.createdAt|date('d/m/y') }} à {{ article.createdAt|date('H:i') }}.
             </div>
            <img src="{{ article.image }}" alt=""/>
             <a href="" target="_blank"><h5>Source :{{ article.source }}</h5></a>
@@ -13,7 +13,7 @@
             <p>{{ article.content }}</p>
         </article>
     </div>
-<h2>Comments</h2>
+{# <h2>Comments</h2>
 <section class="commentaires">
     {% for comment in article.comments %}
         {{ form_start(formComment) }}
@@ -27,5 +27,5 @@
         </div>
         {{ form_end(formComment) }}
     {% endfor %}
-</section>
+</section> #}
 {% endblock %}

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\UserRepository;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -43,6 +44,11 @@ class Article
     private $createdAt;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $author;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Url()
      */
@@ -57,7 +63,6 @@ class Article
     {
         $this->comments = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -96,6 +101,18 @@ class Article
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+    
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $user): self
+    {
+        $this->author = $user;
 
         return $this;
     }

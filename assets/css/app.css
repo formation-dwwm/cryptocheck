@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Arbutus+Slab);
 
-body {
+body{
     font-family: "Arbutus Slab", "serif";
     background-color: white;
     display: flex;
@@ -11,22 +11,22 @@ body {
 h1{
     font-size: 32px;
     text-align: center;
-    margin: 55px;
+    margin: 30px;
 }
 
-
-.list{
-    display: flex;
-    
+.table-dark{
+    width: 50%;
+    margin-left:25%;
 }
 
-.market-cap{
+.icons{
+    padding-right : 15px;
+}
+
+/* .market-cap{
   justify-content: center;
 }
 
-table{
-    width: 100%;
-}
 
 .crypto{    
     align-items: center;
@@ -82,4 +82,4 @@ img{
 
 .custom-file{
     width: 450px;
-}
+} */

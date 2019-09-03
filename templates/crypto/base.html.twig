@@ -9,7 +9,7 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav">
             <a class="navbar-brand" href="{{ path('home') }}">CryptoCheck</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,7 +33,7 @@
                         <a class="nav-link" href="{{ path('registration') }}">S'inscrire</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('connexion') }}">Login</a>
+                        <a class="nav-link" href="{{ path('connexion') }}">Se connecter</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
@@ -47,6 +47,9 @@
                 </form>
             </div>
         </nav>
+        <a>
+            <img class="icon"src="icons/reply.png">
+        </a>
             {% block body %}
             {% endblock %}
         {% block javascripts %}

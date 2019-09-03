@@ -1,6 +1,11 @@
 {% extends 'crypto/base.html.twig' %}
 
 {% block body %}
+<style>
+    img{
+        align-items: center;
+    }
+</style>
     <div class="articles">
         <article>
             <h3>{{ article.title }}</h3>
@@ -13,19 +18,4 @@
             <p>{{ article.content }}</p>
         </article>
     </div>
-{# <h2>Comments</h2>
-<section class="commentaires">
-    {% for comment in article.comments %}
-        {{ form_start(formComment) }}
-        <div class="comment">
-            <div class="col-3">
-                {{ form_row(formComment.title, {'label' : 'Titre', 'attr' : {'placeholder' : "Entrez le titre de l'article"}}) }}
-            </div>
-            <div class="col">
-                {{ comment.content | raw }}
-            </div>
-        </div>
-        {{ form_end(formComment) }}
-    {% endfor %}
-</section> #}
 {% endblock %}

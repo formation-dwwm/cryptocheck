@@ -46,6 +46,11 @@ class User implements UserInterface
      */
     public $confirm_password;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $resetToken;
+
 
     public function getId(): ?int
     {
@@ -95,6 +100,16 @@ class User implements UserInterface
     public function getRoles(){
 
         return ['ROLE_USER'];
+    }
+
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
     }
 
 }

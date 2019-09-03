@@ -34,7 +34,7 @@ class CryptoController extends AbstractController
         // Article::SetUserRepository($userRepo);
 
         return $this->render('crypto/articles.html.twig', [
-            "articles" => $articles,
+            "articles" => $articles
         ]);
     }
 
@@ -79,20 +79,20 @@ class CryptoController extends AbstractController
     public function comment(Article $article,Request $request, ObjectManager $manager)
     {
 
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment);
+        // $comment = new Comment();
+        // $form = $this->createForm(CommentType::class, $comment);
 
-        $form->handleRequest($request);
+        // $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-           $comment->setArticle($article->getId());
-           $comment->setCreatedAt(new \DateTime());
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //    $comment->setArticle($article->getId());
+        //    $comment->setCreatedAt(new \DateTime());
 
-           $manager->persist($comment);
-           $manager->flush();
+        //    $manager->persist($comment);
+        //    $manager->flush();
 
-        return $this->redirectToRoute('articles', ['id' => $article->getId()]);
-        }
+        // return $this->redirectToRoute('articles', ['id' => $article->getId()]);
+        // }
 
         return $this->render('crypto/show.html.twig', [
             'article' => $article,
@@ -106,22 +106,22 @@ class CryptoController extends AbstractController
      */
     public function home(){
         return $this->render('crypto/home.html.twig', [
-            'crypto' => $this->getData(),
+            'crypto' => $this->getData()
             
         ]);
 
     }
 
-    /**
-     * @Route ("/getcrypto", name="getcrypto")
-     */
-    public function GetCrypto() {
-        $httpClient = HttpClient::create();
-        $cryptoDataResponse = $httpClient->request('GET', 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=d3e5529a-6b80-48a6-b10f-b0d92e24ceab');
-        $cryptoDataJson = $cryptoDataResponse->getContent();
+    // /**
+    //  * @Route ("/getcrypto", name="getcrypto")
+    //  */
+    // public function GetCrypto() {
+    //     $httpClient = HttpClient::create();
+    //     $cryptoDataResponse = $httpClient->request('GET', 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=d3e5529a-6b80-48a6-b10f-b0d92e24ceab');
+    //     $cryptoDataJson = $cryptoDataResponse->getContent();
 
-        return JsonResponse::fromJsonString($cryptoDataJson);
-    }
+    //     return JsonResponse::fromJsonString($cryptoDataJson);
+    // }
 
     private function getData(){
         $httpClient = HttpClient::create();

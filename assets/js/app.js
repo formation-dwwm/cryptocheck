@@ -23,17 +23,30 @@ require('../css/app.css');
 //     }
 // }
 
- fetch('http://127.0.0.1:8000/getcrypto')
-//fetch('http://localhost/CryptoCheck/public/getcrypto')
-  .then(function(response) {
-      debugger;
-    return response.json();
-  })
-  .then(function(myJson) {
-    for (let crypto in myJson)
-    {
-        debugger;
-    }
-  });
+//  fetch('http://127.0.0.1:8000/getcrypto')
+// //fetch('http://localhost/CryptoCheck/public/getcrypto')
+//   .then(function(response) {
+//       debugger;
+//     return response.json();
+//   })
+//   .then(function(myJson) {
+//     for (let crypto in myJson)
+//     {
+//         debugger;
+//     }
+//   });
 
+let prevScrollpos = window.pageYOffset;
+window.onscroll = () => {
+  let currentScrollPos = window.pageYOffset;
+  if(prevScrollpos > currentScrollPos){
+    document.getElementById("nav").style.top = "0";
+  }else{
+    document.getElementById("nav").style.top = "-100px";
+  }
+    prevScrollpos = currentScrollPos;
+}
 
+document.querySelector('.icon').addEventListener('click', () => {
+  window.history.back();
+})

@@ -1,25 +1,28 @@
 {% extends 'crypto/base.html.twig' %}
 
 {% block body %}
-    <form method="post" action="{{ path('connexion') }}">
-        <fieldset>
-            <legend class="title">Login</legend>
-            <div class="FORM">
-                <div class="form-group">
-                    <label>Nom d'utilisateur</label>
-                    <input type="text" class="form-control" required name="_username" placeholder="Entrez votre nom d'utilisateur">
-                </div>
-                <div class="form-group">
-                    <label>Mot de passe</label>
-                    <input type="password" class="form-control" required name="_password" placeholder="Entrez votre mot de passe">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success">Se connecter</button>
-                </div>
+    <div class="form">
+        <h2> Se connecter</h2>
+        <form method="post" action="{{ path('connexion') }}">
+            <div class="form-group">
+                <label>Nom d'utilisateur</label>
+                <input type="text" class="form-control" required name="_username" placeholder="Entrez votre nom d'utilisateur">
             </div>
-        </fieldset>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" class="form-control" required name="_password" placeholder="Entrez votre mot de passe">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Se connecter</button>
+                <a href="{{ path('forgot_password') }}">
+                    <p class="message">Mot de passe oublié ?</p>
+                </a>
+                <a href="{{ path('registration') }}">
+                    <p class="message">Pas encore de compte ?</p>
+                </a>
+            </div>
+        </div>
     </form>
-
 {% if error %}
     <div class="alert alert-danger">Email ou Mot de Passe invalide</div>
 {% endif %}

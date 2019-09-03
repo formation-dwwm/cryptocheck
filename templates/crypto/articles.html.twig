@@ -3,19 +3,23 @@
 {% block body %}
 
 <h1>Articles</h1>
-<section class="articles">
-{% for article in articles %}
-    <article>
-        <h3>{{ article.title }}</h3>
-        <div class="metadata">Publié par {{ article.getAuthor().getUsername() }}, le {{ article.createdAt|date('m/d/y') }} à {{ article.createdAt|date('H:i') }}</div>
-        <div class="content">
-            <img src="{{ article.image }}" alt="image"/>
-            <a href="https://cointelegraph.com/news/segwit-creator-introduces-new-language-for-bitcoin-smart-contracts" target="_blank"><h5>Source :{{ article.source }}</h5></a>
-            <p>{{ article.content }}</p>
-            <a href="{{ path('articles_show', {'id' : article.id}) }}" class="btn btn-primary">Lire la suite</a>
-        </div>
-    </article>
-{% endfor %}
+<section>
+    <div class="card-deck">
+    {% for article in articles %}
+            <div class="card">
+                <a href="{{ path('articles_show', {'id' : article.id}) }}">
+                    <img src="{{ article.image }}" class="card-img-top" alt="image">
+                    <a href="{{ article.source }}" target="_blank">Source : {{ article.source }}</a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Publié par {{ article.getAuthor().getUsername() }}, le {{ article.createdAt|date('m/d/y') }} à {{ article.createdAt|date('H:i') }}</small>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 </section>
 {% if app.user %}
     <a class="newArticle" href="{{ path('create_article') }}"><button class="btn btn-primary">Créer un article</button></a>

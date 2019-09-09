@@ -2,16 +2,17 @@
 
 {% block body %}
     <div class="form">
-        <h2> Se connecter</h2>
+        <h2>Se connecter</h2>
         <form method="post" action="{{ path('connexion') }}">
             <div class="form-group">
-                <label>Nom d'utilisateur</label>
-                <input type="text" class="form-control" required name="_username" placeholder="Entrez votre nom d'utilisateur">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" class="form-control" required name="_username" placeholder="Entrez votre nom d'utilisateur" value="{{ last_username }}"/>
             </div>
             <div class="form-group">
-                <label>Mot de passe</label>
+                <label for="password">Mot de passe</label>
                 <input type="password" class="form-control" required name="_password" placeholder="Entrez votre mot de passe">
             </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Se connecter</button>
                 <a href="{{ path('forgot_password') }}">

@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Cryptocurrencies</h1>
     <br>
-    <table id="tablo" class="table table-dark">
+    <table class="table table-dark">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -13,8 +13,8 @@
                 <th scope="col">Variation</th>
             </tr>
         </thead>
+        <tbody>
         {% for item in crypto %}
-        <tbody id="crypto">
             <tr>
                 <td>{{ item.cmc_rank }}</td>
                 <td>
@@ -26,7 +26,7 @@
                 {% set variation = item.quote.USD.percent_change_24h * 100 // 1 / 100 %}
                 <td class="{% if variation < 0 %} negative {% else %} positive {% endif %} "> {{ variation }} % </td>
             </tr>
-        </tbody>
         {% endfor %}
+        </tbody>
     </table>
 {% endblock %}

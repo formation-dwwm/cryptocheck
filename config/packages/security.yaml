@@ -1,7 +1,10 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     encoders:
         App\Entity\User:
-            algorithm: auto
+            algorithm: bcrypt
             
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -15,12 +18,17 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            pattern:    ^/
+            user_checker: App\Security\UserChecker
+            switch_user: ~
+            http_basic: ~
+            anonymous: ~
             provider: in_database
 
             form_login:
                 login_path: connexion
                 check_path: connexion
+                csrf_token_generator: security.csrf.token_manager
 
             logout:
                 path: logout
@@ -35,5 +43,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

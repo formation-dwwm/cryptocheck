@@ -1,0 +1,11 @@
+{% extends 'crypto/base.html.twig' %}
+
+{% block body %}
+    <p>
+        Bonjour,<br>
+        Cliquez sur ce lien pour changer votre mot de passe.
+        <a href="{{absolute_url(path('resetting', {'id': user.id, 'token': user.token}))}}">Changer le mot de passe</a>
+    </p>
+</body>
+</html>
+{% endblock %}

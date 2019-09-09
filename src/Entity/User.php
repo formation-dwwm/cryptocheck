@@ -8,13 +8,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(
- * fields = {"email"},
- * message = "L'email est déjà utilisé ! "
- * )
+ * @UniqueEntity(fields = {"email"}, message = "L'email est déjà utilisé !")
+ * @UniqueEntity(fields = {"username"}, message = "Ce pseudo est déjà utilisé !")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 
 {
     /**
@@ -25,13 +24,15 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Email()
+     * @Assert\NotBlank()
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -43,14 +44,37 @@ class User implements UserInterface
 
     /**
      * @Assert\EqualTo(propertyPath="password", message="Votre mot de passe doit correspondre")
+     * @Assert\NotBlank()
      */
     public $confirm_password;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @ORM\Column(type="boolean", name="is_active")
+     */
+    private $isActive;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $resetToken;
+    protected $token;
 
+    /**
+     * @var array
+     * @ORM\Column(type="array")
+     */
+    private $roles;
+
+    public function __construct(){
+
+        $this->isActive = true;
+        $this->roles = ['ROLE_USER'];
+    }
 
     public function getId(): ?int
     {
@@ -93,23 +117,87 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    public function setPasswordRequestedAt($passwordRequestedAt)
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+        return $this;
+    }
+
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
+
     public function eraseCredentials(){}
 
-    public function getSalt(){}
+    public function getSalt(){
+
+        return null;
+    }
 
     public function getRoles(){
 
-        return ['ROLE_USER'];
+        return $this->roles;
     }
 
-    public function getResetToken(): string
+    public function setRoles(array $roles)
     {
-        return $this->resetToken;
+        if (!in_array('ROLE_USER', $roles))
+        {
+            $roles[] = 'ROLE_USER';
+        }
+        foreach ($roles as $role)
+        {
+            if(substr($role, 0, 5) !== 'ROLE_') {
+                throw new InvalidArgumentException("Chaque rôle doit commencer par 'ROLE_'");
+            }
+        }
+        $this->roles = $roles;
+        return $this;
     }
 
-    public function setResetToken(?string $resetToken): void
+    public function getToken(): ?string
     {
-        $this->resetToken = $resetToken;
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+      /** @see \Serializable::serialize() */
+      public function serialize()
+      {
+          return $this->serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+          ]);
+      }
+
+       /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->isActive
+            ) = unserialize($serialized, ['allowed_classes' => false]);
     }
 
 }
